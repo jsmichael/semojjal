@@ -1,0 +1,17 @@
+.font {
+    font-family: 'Noto Sans Korean', sans-serif;
+}
+
+.space50 {
+    height:25px;
+}
+
+body {
+    background-color: #ECECEC !important;
+}
+
+.tag {
+    font-family: 'Malgun Gothic', sans-serif;
+    font-size: 12px;
+    color: #969696;
+}

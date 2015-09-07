@@ -1,0 +1,22 @@
+<%= render :partial => "main/navbar" %>
+<div style="height:50px"></div>
+<div class="ui container">
+  <div class="ui segment">
+    <form action="/main/tag_search" method="POST">
+    태그검색: #<input type="text" name="tag"><br>
+    엄격하게 검색 (태그 100% 일치) <input type="radio" name="search_type" value="match_all">
+    느슨하게 검색 (일부만 일치해도 됨) <input type="radio" name="search_type" value="any" checked>
+    <button type="submit">검색!!</button>
+    </form>
+  </div>
+<div style="height:50px"></div>
+  <div class="ui segment">
+    <div class="ui grid">
+      <%= @search_result %>
+      <div class="ui four wide column">
+      
+      </div>
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+    <% if false %>
+    <% @jjal.sample(4).reverse_each do |y| %>
+    <div class="four wide column">
+      <div class="ui card">
+        <div class="image">
+            <div class="ui blue ribbon label">
+                  <a href="/main/save_image/<%=y.id%>"><i id="icon<%=y.id%>" class="heart outline like icon"
+                  data-content="내 짤방으로 저장하기" data-variation="tiny"></i></a>
+                  <%= y.users.count%>
+            </div>
+            <script>
+              $('#icon<%=y.id%>')
+                .popup()
+              ;
+            </script>
+          <img src="<%= y.jjalbang.url %>">
+        </div>
+        <div class="content">
+          <% y.tags.each do |t| %>
+          <a class="ui small label" href="/main/tag_click/?id=<%=t.id%>">
+          <%= t.name %>
+          </a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+  
+  
+    <% if false %>
+  <div class="ui grid">
+    <% @jjal.sample(3).reverse_each do |y| %>
+    <div class="five wide column">
+  		<figure class="image-container">
+  		
+  			<img src="<%= y.jjalbang.url %>">
+  			<figcaption class="clearfix" id="hahaha">
+  				<h4>          <% y.tags.each do |t| %>
+          <a class="ui small label" href="/main/tag_click/?id=<%=t.id%>">
+          <%= t.name %>
+          </a>
+          <% end %></h4>
+  				<p></p>
+			  </figcaption>
+		  </figure>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
+	
+  <% if false %>
+    <div class="eight wide column">
+      <div class="ui segment">
+        <%=y.id%>
+        <img src="<%= y.jjalbang.url %>" style="width:300px"><br>
+        <%= y.users.count %>명이 이 짤방을 소장하고 있습니다.
+      </div>
+    </div>
+    
+    <div class="eight wide column">
+      <div class="ui segment">
+        <div class="ui tag labels">
+          <% y.tags.each do |t| %>
+          <a class="ui label" href="/main/tag_click/?id=<%=t.id%>">
+          #<%= t.name %>
+          </a>
+         <br>
+          태그입력창(쉼표로 태그 구분)
+          <form action="/main/new_tag" method="POST">
+            <input type="text" name="tag" placeholder="태그입력">
+            <input type="hidden" name="id" value="<%=y.id%>">
+            <button type="submit">아!!</button>
+          </form>
+        </div>
+        <form action="/main/save_image" method="POST">
+          <input type="hidden" name="id" value="<%=y.id%>">
+          <button type="submit">소장하기</button>
+        </form>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,26 @@
+<%= render :partial => "main/navbar" %>
+
+<div class="space50"></div>
+
+<div class="ui container">
+  <div class="ui grid">
+    <div class="twelve wide column">
+  <div class="ui segment" align="center">
+    <h3>폴더별 보기</h3>
+    <h4>폴더 리스트</h4>
+    <% @folder_list.each do |folder|%>
+    <a href="/mypage/folder_detail/<%=folder.id%>">(폴더)<%= folder.folder_name%></a>
+    <%end%>
+  </div>
+  </div>
+  
+  <div class="four wide column">
+  <a href="/mypage/folder_edit">
+  <div class="ui segment">
+  편집모드
+  </div>
+  </a>
+  </div>
+  
+  </div>
+</div>

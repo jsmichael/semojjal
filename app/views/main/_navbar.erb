@@ -1,0 +1,19 @@
+<div class="space50"></div>
+<div class="ui container">
+  <div class="ui menu">
+    <div class="header item">세상의 모든 짤방</div>
+    <a class="item" href="/main/view">처음화면</a>
+    <a class="item" href="/main/tag_view">태그로 검색</a>
+    <a class="item" href="/mypage/home">나만의 짤방창고</a>
+
+    <div class="right menu">
+      <% if user_signed_in? %>
+      <a class="item"><%= current_user.email %>님이 로그인 했다.
+      <a class="item" href="/users/sign_out">로그아웃</a>
+      <% else %>
+      <a class="item" href="/users/sign_in">로그인</a>
+      <% end %>
+      <a class="item">About</a>
+    </div>
+  </div>
+</div>

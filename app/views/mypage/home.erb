@@ -1,0 +1,102 @@
+<%= render :partial => "main/navbar" %>
+
+<div class="space50"></div>
+
+<div class="ui container">
+  <div class="ui segment" align="center">
+    <% if user_signed_in? %>
+    <h3><%= current_user.email%>님의 개인 짤방창고<br></h3>
+    <h2>총 <%= @my_jjal.count%>개의 짤방을 소장하고 계십니다!<br></h2>
+    <% else %>
+    <a href="/users/sign_in">로그인</a> 하시고 나만의 짤방창고에 접속하세요!
+    <% end %>
+  </div>
+  
+  <div class="ui grid">
+    <div class="eight wide column">
+      <div class="ui segment">
+        <a href="/mypage/tag"><h3 class="font">태그별 보기</h3></a>
+      </div>
+    </div>
+    <div class="eight wide column">
+      <div class="ui segment">
+        <a href="/mypage/folder"><h3 class="font">폴더별 보기</h3></a>
+      </div>
+    </div>  
+  </div>
+  
+  <% if user_signed_in?%>
+  <div class="ui grid">
+    <% @my_jjal.reverse_each do |y| %>
+    <div class="four wide column">
+      <div class="ui card">
+        <div class="image" onclick=
+        '$("#contentmodal<%=y.id%>")
+        .modal({
+          blurring: true
+          })
+        .modal("show");'
+        >
+            <div class="ui blue ribbon label">
+              <% y.tags.shuffle.sample(1).each do |t|%><%=t.name%><%end%>
+            </div>
+          <img src="<%= y.jjalbang.url %>">
+        </div>
+        <div class="content">
+          <% y.tags.each do |t| %>
+          <a class="ui small label" href="/main/tag_click/?id=<%=t.id%>">
+          <%= t.name %>
+          </a>
+          <% end %>
+        </div>
+        <div class="ui divider"></div>
+        
+        <div class="ui accordion">
+          <div class="title" align="center">
+            <p>태그 추가(쉼표로 구분)</p>
+          </div>
+          <div class="content" align="center">
+            <form action="/main/new_tag" method="POST">
+              <input type="text" name="tag" placeholder="태그입력">
+              <input type="hidden" name="id" value="<%=y.id%>">
+              <button type="submit">아!!</button>
+            </form>
+          </div>
+        </div>
+        
+<script>
+    $('.accordion')
+  .accordion({
+    selector: {
+      trigger: '.title'
+    }
+  })
+;
+</script>
+
+          <div class="ui one bottom attached buttons">
+            <div id="icon<%=y.id%>" class="ui button" data-content="소장한 유저 수" data-variation="tiny">
+              <i class="heart icon"></i>
+              <%= y.users.count%>
+            </div>
+            <script>
+              $('#icon<%=y.id%>')
+                .popup()
+              ;
+            </script>
+d
+          </div>
+      </div>
+    </div>
+    <div class="ui modal" id="contentmodal<%=y.id%>">
+        <i class="close icon"></i>
+      <div class="content" align="middle">
+        <iframe src="/main/image_detail/<%=y.id%>" frameborder="0" width="800px" height="500px"></iframe>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+
+    <%end%>
+    </div>

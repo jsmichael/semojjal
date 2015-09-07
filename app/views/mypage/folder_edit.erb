@@ -1,0 +1,113 @@
+<%= render :partial => "main/navbar" %>
+
+<div class="space50"></div>
+
+<div class="ui container">
+
+  <div class="ui segment">
+  <h3>현재 폴더 리스트</h3>
+  <% @folder_list.each do |f| %>
+  <a href="/mypage/folder_detail/<%=f.id%>"><%= f.folder_name %></a>
+  <% end %>
+  </div>
+  
+  <div class="ui grid">
+    <div class="eight wide column">
+      <div class="ui segment">
+        새 폴더 만들기
+        <form method="POST" action="/mypage/new_folder">
+          <input type="text" name="folder_name" placeholder="폴더명">
+          <button type="submit">아!!</button>
+        </form>
+      </div>
+    </div>
+  
+    <div class="eight wide column">
+      <div class="ui segment">
+      다음 폴더 지우기
+      
+      <form method="POST" action="/mypage/delete_folder">
+      
+      <div class="ui selection dropdown">
+        <input type="hidden" name="folder_id">
+        <i class="dropdown icon"></i>
+        <div class="default text">폴더선택</div>
+        <div class="menu">
+          <% @folder_list.each do |f|%>
+          <div class="item" data-value="<%=f.id%>"><%=f.folder_name%></div>
+          <%end%>
+        </div>
+      </div>
+      
+    <script>
+    $('.ui.dropdown')
+    .dropdown()
+    ;
+    </script>
+        <button type="submit">삭제</button>
+      </div>
+    </div>
+    </form>
+  </div>
+    
+  <div class="ui segment">
+  선택한 짤방을 다음 폴더로 이동:
+  
+  <form method="POST" action="/mypage/move_folder">
+  
+  <div class="ui selection dropdown">
+    <input type="hidden" name="folder_id">
+    <i class="dropdown icon"></i>
+    <div class="default text">폴더선택</div>
+    <div class="menu">
+      <% @folder_list.each do |f|%>
+      <div class="item" data-value="<%=f.id%>"><%=f.folder_name%></div>
+      <%end%>
+    </div>
+  </div>
+<script>
+$('.ui.dropdown')
+.dropdown()
+;
+</script>
+    <button type="submit">이동</button>
+  </div>
+  </form>
+  
+
+  
+  <div class="ui grid">
+    <% @my_jjal.reverse_each do |y| %>
+    <div class="four wide column">
+      <div class="ui card">
+        <a href="<%=y.jjalbang.url%>" data-lighter>
+        <div class="image" style="height:100%">
+            <div class="ui <%=@color.shuffle.sample%> ribbon label">
+              <% y.tags.shuffle.sample(1).each do |t|%><%=t.name%><%end%>
+            </div>
+          <img src="<%= y.jjalbang.thumb.url %>" style="width:100%">
+        </div>
+        </a>
+        <div class="content">
+          <% y.tags.each do |t| %>
+          <a class="ui small label" href="/main/tag_click/?id=<%=t.id%>">
+          <%= t.name %>
+          </a>
+          <% end %>
+        </div>
+        
+        <div class="ui two bottom attached buttons">
+          <div class="ui button number_info" data-content="소장한 유저 수" data-variation="tiny">
+            <i class="heart icon"></i>
+            <%= y.users.count%>
+          </div>
+          <div class="ui primary button">
+            <input type="checkbox" name="selected[]" value="<%=y.id%>">
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  
+</div>

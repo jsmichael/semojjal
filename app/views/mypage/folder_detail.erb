@@ -1,0 +1,13 @@
+<%= render :partial => "main/navbar" %>
+
+<div class="space50"></div>
+
+<div class="ui container">
+  <div class="ui segment">
+    <% @folder_content.images.each do |image|%>
+    <img src="<%=image.jjalbang.url%>" style="width:250px">
+    <%end%>
+          
+    
+  </div>
+</div>
